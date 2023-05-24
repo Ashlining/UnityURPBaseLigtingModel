@@ -5,8 +5,7 @@ Shader "BasicLightingModel/PBR"
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Roughness ("Roughness", Range(0,1)) = 0.5
-        //Gamma矫正金属度变化 ，这个矫正是否有必要？做截图对比
-        [Gamma]_Metallic ("Metallic", Range(0,1)) = 0.0
+        _Metallic ("Metallic", Range(0,1)) = 0.0
     }
     SubShader
     {
@@ -56,11 +55,6 @@ Shader "BasicLightingModel/PBR"
                 return o;
             }
 
-            inline half Pow5 (half x)
-            {
-                return x*x * x*x * x;
-            }
-
             //正态分布函数D
             float Distribution(float roughness , float nh)
             {
@@ -85,6 +79,11 @@ Shader "BasicLightingModel/PBR"
             {
                 float3 F = F0 + (1 - F0) * exp2((-5.55473 * vh - 6.98316) * vh);
                 return F;
+            }
+
+            inline half Pow5 (half x)
+            {
+                return x*x * x*x * x;
             }
 
             //立方体贴图的Mip等级计算

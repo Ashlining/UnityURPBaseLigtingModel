@@ -51,7 +51,7 @@ Shader "BasicLightingModel/BlinnPhong+Lambert"
                 //归一化世界法线
                 float3 worldNormal = normalize(i.worldNormal);
                 //归一化视线方向
-                float3 worldViewDir = normalize(_WorldSpaceCameraPos);
+                float3 worldViewDir = normalize(_WorldSpaceCameraPos-i.worldPos);
                 //获取MainLight
                 Light mainLight = GetMainLight();
                 //归一化光照方向
